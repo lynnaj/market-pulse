@@ -1,6 +1,18 @@
 import { Activity, RefreshCw } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export const DashboardHeader = () => {
+  const queryClient = useQueryClient();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await queryClient.invalidateQueries();
+    setTimeout(() => setIsRefreshing(false), 1000);
+  };
+
   return (
     <header className="flex items-center justify-between mb-8">
       <div className="flex items-center gap-3">
@@ -21,10 +33,14 @@ export const DashboardHeader = () => {
           <span className="w-2 h-2 rounded-full bg-success animate-pulse"></span>
           <span>Markets Open</span>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-secondary hover:bg-secondary/80 text-foreground rounded-lg transition-colors">
-          <RefreshCw className="w-4 h-4" />
+        <Button 
+          onClick={handleRefresh} 
+          variant="secondary"
+          disabled={isRefreshing}
+        >
+          <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
           <span className="text-sm font-medium">Refresh</span>
-        </button>
+        </Button>
       </div>
     </header>
   );
