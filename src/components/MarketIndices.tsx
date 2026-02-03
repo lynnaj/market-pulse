@@ -10,10 +10,15 @@ export const MarketIndices = () => {
     staleTime: 30000,
   });
 
+  // Filter out Dow Jones and Russell 2000
+  const filteredIndices = indices?.filter(
+    (index: IndexData) => !["Dow Jones", "Russell 2000"].includes(index.name)
+  );
+
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {[1, 2, 3, 4].map((i) => (
+      <div className="grid grid-cols-2 gap-4">
+        {[1, 2].map((i) => (
           <div
             key={i}
             className="bg-card border border-border rounded-xl p-4 animate-pulse"
@@ -37,8 +42,8 @@ export const MarketIndices = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      {indices.map((index: IndexData) => (
+    <div className="grid grid-cols-2 gap-4">
+      {filteredIndices.map((index: IndexData) => (
         <div
           key={index.name}
           className="bg-card border border-border rounded-xl p-4 hover:border-primary/50 transition-all duration-300"
