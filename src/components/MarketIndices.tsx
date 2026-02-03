@@ -12,7 +12,7 @@ export const MarketIndices = () => {
 
   // Filter out Dow Jones and Russell 2000
   const filteredIndices = indices?.filter(
-    (index: IndexData) => !["Dow Jones", "Russell 2000"].includes(index.name)
+    (index: IndexData) => !["DOW JONES", "RUSSELL 2000"].includes(index.name.toUpperCase())
   );
 
   if (isLoading) {
