@@ -1,3 +1,4 @@
+# Deploy to GitHub Pages using Bun
 name: Deploy to GitHub Pages
 
 on:
